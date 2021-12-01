@@ -29,5 +29,11 @@ export const SidebarData = [
     icon: <BsIcons.BsFillPersonFill />,
     cName: 'nav-text'
   },
+  {
+    title: 'SignIn',
+    path: '/signIn',
+    icon: <BsIcons.BsFillPersonFill />,
+    cName: 'nav-text'
+  },
 
 ];

@@ -4,13 +4,13 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
 const cors = require('cors');
-require('dotenv').config();
 const history = require('connect-history-api-fallback');
-const isProduction = process.env.NODE_ENV === 'production';
+const db = require('./db/db_config');
 
 // import all the express routes we will be using
 const routesRouter = require('./routes/routes');
 const reportsRouter = require('./routes/reports');
+const usersRouter = require('./routes/users');
 
 // create our app
 const app = express();
@@ -39,12 +39,28 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // server html+css+js frontend
-app.use(history());
-app.use(express.static(path.join(__dirname, isProduction ? 'dist' : 'public')));
+require('dotenv').config();
+
+const isProduction = process.env.NODE_ENV === 'production'; //CHANGE TO UNNEG BOOL WHEN PUSH TO PROD
+app.use(express.static(path.join(__dirname, isProduction ? 'build' : 'public')));
+
+db.mongoose
+  .connect(db.url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => {
+    console.log("Connected to the database!");
+  })
+  .catch(err => {
+    console.log("Cannot connect to the database!", err);
+    process.exit();
+  });
 
 // connect url hierarchies to our routers
 app.use('/api/reports', reportsRouter);
 app.use('/api/routes', routesRouter);
+app.use('/api/users', usersRouter);
 
 app.all('*', (req, res) => {
   const errorMessage = `
@@ -80,7 +96,5 @@ app.all('*', (req, res) => {
 
   res.status(404).send(errorMessage);
 });
-
-console.log("Running on localhost:8080...");
 
 module.exports = app;

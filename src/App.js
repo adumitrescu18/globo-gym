@@ -5,7 +5,9 @@ import RoutePage from "./pages/RoutePage";
 import HazardsPage from "./pages/HazardsPage";
 import ReportsPage from "./pages/ReportsPage";
 import ProfilePage from "./pages/ProfilePage";
+import SignInPage from "./pages/SignInPage";
 import Sidebar from "./components/Sidebar";
+
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
           <Route path="/hazards" element={<HazardsPage />} />
           <Route path="/reports" element={<ReportsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/signIn" element={<SignInPage />} />
 
         </Routes>
       </BrowserRouter>

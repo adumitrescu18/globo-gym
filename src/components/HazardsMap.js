@@ -91,9 +91,6 @@ export class HazardsMap extends Component {
                         directionsDisplay.setDirections(result);
                     }
                 });
-                fetch("http://localhost:8080/api/reports", serverRequest)
-                .then(response => response.json())
-                .then(data => console.log("andrei", data))
             }
           }
         
@@ -112,36 +109,10 @@ export class HazardsMap extends Component {
             onClick={this.onMapClick}
             onReady={this.onMapReady}
             style={{width: "85%", height: "100%", position: "fixed"}}
-            containerStyle={{position: "fixed", width: "100%", height:"90%", marginTop:"10vh"}}
+            containerStyle={{position: "fixed", width: "100%", height:"90%", marginTop:"0vh"}}
             zoom={15}
           >
           </Map>
-          <div className="pac-card" id="pac-card">
-            <div>
-              <div id="title">Add new point</div>
-  
-              <div id="pac-container">
-                <input
-                  id="pac-input"
-                  type="text"
-                  placeholder="Enter a location"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="pac-card" id="pac-card2">
-            <div>
-              <div id="title2">Add new point</div>
-  
-              <div id="pac-container2">
-                <input
-                  id="pac-input2"
-                  type="text"
-                  placeholder="Enter a location"
-                />
-              </div>
-            </div>
-          </div>
           <div style={{ width: 500, height: 500 }} id={this.props.id} />
           <div id="infowindow-content">
             <img src="" width="16" height="16" id="place-icon" />
